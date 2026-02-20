@@ -3,7 +3,7 @@ from pathlib import Path
 import joblib
 import pandas as pd
 from sklearn.linear_model import LogisticRegression
-from sklearn.metrics import accuracy_score
+from sklearn.metrics import accuracy_score, classification_report
 
 
 PROCESSED_DIR = Path("data/processed")
@@ -30,9 +30,12 @@ def main() -> None:
 
     with open(RESULTS_DIR / "train_accuracy.txt", "w", encoding="utf-8") as f:
         f.write(f"accuracy={accuracy:.4f}\n")
+    with open(RESULTS_DIR / "train_report.txt", "w", encoding="utf-8") as f:
+        f.write(classification_report(y_test, predictions))
 
     print(f"Model saved to: {MODEL_PATH}")
     print(f"Training completed. Accuracy: {accuracy:.4f}")
+    print(f"Training classification report saved to: {RESULTS_DIR / 'train_report.txt'}")
 
 
 if __name__ == "__main__":
